@@ -125,7 +125,13 @@ deconcept.SWFObject.prototype = {
 				this.addVariable("MMredirectURL", escape(this.getAttribute('xiRedirectUrl')));
 				document.title = document.title.slice(0, 47) + " - Flash Player Installation";
 				this.addVariable("MMdoctitle", document.title);
-			}
+			} else if (!this.installedVer.versionIsValid(expressInstallReqVer) &&
+                                   this.getAttribute('useGetFlashImageFallback')) {
+                                var imageURL = this.getAttribute('getFlashImageURL') || 'get_flash_player.gif';
+			        var n = (typeof elementId == 'string') ? document.getElementById(elementId) : elementId;
+                                n.innerHTML = '<a href="http://www.adobe.com/go/getflashplayer"><img src="' + this.htescape(imageURL) + '" alt="Get Flash Player" style="border:0"></a>';
+                                return true;
+                        }
 		}
 		if(this.skipDetect || this.getAttribute('doExpressInstall') || this.installedVer.versionIsValid(this.getAttribute('version'))){
 			var n = (typeof elementId == 'string') ? document.getElementById(elementId) : elementId;
