@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<title>swfobject</title>
+<style>
+  #container {
+    display: inline-block;
+    border: blue 3px solid;
+  }
+</style>
+
+<div id=container></div>
+<div>Version test: <span id=version></span></div>
+
+<script src=swfobject.js></script>
+<script>
+
+  var container = document.getElementById('container');
+  var width = 500;
+  var height = 300;
+
+  var requireFlashPlayerVersion = '9';
+  if (navigator.userAgent.toUpperCase().indexOf('MSIE') >= 0) {
+    requireFlashPlayerVersion = '9.0.59'; // for IE
+  }
+  var so = new SWFObject(
+    'http://h.hatena.ne.jp/js/SimpleOekaki.swf',
+    'canvas',
+    width,
+    height,
+    requireFlashPlayerVersion,
+    '#FFFFFF'
+  );
+  so.useExpressInstall('expressinstall.swf');
+  so.addVariable('canvasWidth', width);
+  so.addVariable('canvasHeight', height);
+  so.addVariable('brush', '');
+  so.addParam('allowScriptAccess', 'always');
+  so.write(container);
+
+  document.getElementById('version').innerHTML
+    = so.installedVer.versionIsValid(so.getAttribute('version'));
+
+</script>
