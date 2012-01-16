@@ -72,7 +72,7 @@ deconcept.SWFObject.prototype = {
           return (s + '').replace(/[^0-9A-Za-z_-]/g, '_');
         },
         escapeFlashVar: function (s) {
-          return (s + '').replace(/([=&])/g, function (t) {
+          return (s + '').replace(/([^\w\u0080-\uffff])/g, function (t) {
             return encodeURIComponent(t);
           });
         },
